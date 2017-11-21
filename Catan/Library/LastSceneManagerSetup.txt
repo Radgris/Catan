@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Settlers of Catan.unity
+  isLoaded: 1
+  isActive: 1
