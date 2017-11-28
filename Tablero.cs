@@ -21,5 +21,11 @@ namespace WindowsFormsApp1
         {
             Deck = new DeckDesarrollo();
         }
+
+
+        public void Trade(Player Trading, Player ToTrade, )
+        {
+
+        }
     }
 }

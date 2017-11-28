@@ -16,6 +16,10 @@ namespace WindowsFormsApp1
         int Ladrillo;
         int puntosVictoria;
 
+        int limitePuentes = 15;
+        int limiteCasas= 5;
+        int limiteCiudades =4;
+
         List<Propiedad> Propiedades;
 
         List<CDesarrollo> CartasDeDesarrollo;
