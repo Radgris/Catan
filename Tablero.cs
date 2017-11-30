@@ -78,12 +78,108 @@ namespace WindowsFormsApp1
                    {
                        if(prop.Activo == true)
                        {
-                           prop.Propietario.AgregarRecurso(Nodo.NodeType,(int)prop.tipo);
-                       }
-                   } 
+                            prop.Propietario.AgregarRecurso(Nodo.NodeType,(int)prop.tipo);
+                            if (Nodo.NodeType == NodeType.Paja)
+                                PajaRestante -= prop.tipo;
+                            else if (Nodo.NodeType == NodeType.Madera)
+                                MaderaRestante -= prop.tipo;
+                            else if (Nodo.NodeType == NodeType.Mineral)
+                                MineralRestante -= prop.tipo;
+                            else if (Nodo.NodeType == NodeType.Comida)
+                                ComidaRestante -= prop.tipo;
+                            else if (Nodo.NodeType == NodeType.Ladrillo)
+                                LadrilloRestante -= prop.tipo;
+                        }
+                    } 
+                }
+            }
+        }
+        
+        public void ConstruirVertice(Vertices spot, Player building)
+        {
+            if (!spot.Activo)
+            {
+                bool vecinos = false;
+                bool caminoVertice = false;
+                foreach (Vertices vecino in spot.Vecinos)
+                {
+                    if (vecino.Activo)
+                    {
+                        vecinos = true;
+                        break;
+                    }
+                }
+                    
+                foreach(Aristas camino in spot.Caminos)
+                {
+                    if (camino.Activo && camino.Propietario == building)
+                    {
+                        caminoVertice = true;
+                        break;
+                    }
+                }
+                if (!vecinos && caminoVertice)
+                {
+                    if (building.Paja >= 1 && building.Madera >= 1 && building.Comida >= 1 && building.Ladrillo >= 1)
+                    {
+                        building.QuitarRecuerso(Tipodenodo.Paja, 1);
+                        building.QuitarRecuerso(Tipodenodo.Madera, 1);
+                        building.QuitarRecuerso(Tipodenodo.Comida, 1);
+                        building.QuitarRecuerso(Tipodenodo.Ladrillo, 1);
+                        spot.Activo = true;
+                        spot.Propietario = building;
+                    }
+                }
+            }
+            else if (spot.Activo)
+            {
+                if (spot.Propietario == building)
+                {
+                    if (building.Paja >= 2 && building.Mineral >= 3)
+                    {
+                        building.QuitarRecurso(Tipodenodo.Paja, 2);
+                        building.QuitarRecurso(Tipodenodo.Mineral, 3);
+                        spot.tipo = Type.ciudad;
+                    }
                 }
             }
         }
 
+        public void ConstruirArista(Arista arista, Player building)
+        {
+            bool PuebloObstruye = false;
+            bool CaminoPermite = false;
+            foreach(Vertices Pueblo in arista.PuebloAyacente)
+            {
+                if (Pueblo.Activo && Pueblo.Propietario != building)
+                {
+                    PuebloObstruye = true;
+                    break;
+                }
+            }
+            foreach(Aristas caminoAdyacente in arista.CaminosVecinos)
+            {
+                if (caminoAdyacente.Activo && caminoAdyacente.Propietario == building)
+                {
+                    CaminoPermite = true;
+                    break;
+                }
+            }
+            if (!arista.Activo)
+            {
+                if (!PuebloObstruye && CaminoPermite)
+                {
+                    if (building.Madera >= 1 && building.Ladrillo >= 1)
+                    {
+                        building.QuitarRecuero(Tipodenodo.Madera, 1);
+                        building.QuitarRecuero(Tipodenodo.Ladrillo, 1);
+                        spot.Activo = true;
+                        spot.Propietario = building;
+                    }
+                }
+            }
+        }
+
+        
     }
 }

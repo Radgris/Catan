@@ -10,7 +10,7 @@ namespace WindowsFormsApp1
 
     public enum Type {puente,casa,ciudad}
 
-    class Propiedad
+    abstract class Propiedad
     {
         Player Propietario;
         bool Activo;
