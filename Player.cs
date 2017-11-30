@@ -29,5 +29,33 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        public void AgregarRecurso(Tipodenodo tipo, int cantidad)
+        {
+            if(tipo==Tipodenodo.Paja)
+                Paja+=cantidad;
+            else if(tipo==Tipodenodo.Madera)
+                Madera+=cantidad;
+            else if(tipo==Tipodenodo.Mineral)
+                Mineral+=cantidad;
+            else if(tipo==Tipodenodo.Comida)
+                Comida+=cantidad;
+            else if(tipo==Tipodenodo.Ladrillo)
+                Ladrillo+=cantidad;
+        }
+
+        public void QuitarRecurso(Tipodenodo tipo, int cantidad)
+        {
+            if(tipo==Tipodenodo.Paja)
+                Paja-=cantidad;
+            else if(tipo==Tipodenodo.Madera)
+                Madera-=cantidad;
+            else if(tipo==Tipodenodo.Mineral)
+                Mineral-=cantidad;
+            else if(tipo==Tipodenodo.Comida)
+                Comida-=cantidad;
+            else if(tipo==Tipodenodo.Ladrillo)
+                Ladrillo-=cantidad;
+        }
     }
 }
